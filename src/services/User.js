@@ -12,7 +12,7 @@ const registerUser = async (email, password) => {
     await user.save();
   } catch (error) {
     console.log(error);
-    throw new Error(error);
+    throw error;
   }
 };
 
