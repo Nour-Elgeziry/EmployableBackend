@@ -11,8 +11,10 @@ const registerUser = async (req, res) => {
     await userService.registerUser(email, password);
     res.status(201).send("User registered successfully");
   } catch (error) {
-    console.log(error);
-    res.status(500).send("Error in saving");
+    console.log("the error", error.message);
+    if (error.message === "409") {
+      res.status(409).send("User already exists");
+    } else res.status(500).send(`Error in saving user: ${error}`);
   }
 };
 
