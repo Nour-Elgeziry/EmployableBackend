@@ -12,4 +12,9 @@ userRouter.post("/register", async (req, res) => {
   res.send(response);
 });
 
+userRouter.post("/login", async (req, rest) => {
+  const response = await userController.loginUser(req, rest);
+  rest.send(response);
+});
+
 export default userRouter;

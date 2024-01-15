@@ -17,8 +17,21 @@ const registerUser = async (req, res) => {
   }
 };
 
+const loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    await userService.loginUser(email, password);
+    res.status(200).send("User logged in successfully");
+  } catch (error) {
+    if (error.message === "401") {
+      res.status(401).send("Invalid credentials");
+    } else res.status(500).send(`Error in login user: ${error}`);
+  }
+};
+
 const userController = {
   registerUser,
+  loginUser,
 };
 
 export default userController;
