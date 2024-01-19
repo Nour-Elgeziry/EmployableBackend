@@ -20,6 +20,10 @@ const User = new mongoose.Schema({
     type: Number,
     required: false,
   },
+  country: {
+    type: String,
+    required: false,
+  },
   date: {
     type: Date,
     default: Date.now,

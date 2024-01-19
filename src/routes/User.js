@@ -1,5 +1,6 @@
 import express from "express";
 import userController from "../controllers/User.js";
+import tokenVerification from "../middleware/tokenVerification.js";
 
 const userRouter = express.Router();
 
@@ -12,9 +13,14 @@ userRouter.post("/register", async (req, res) => {
   res.send(response);
 });
 
-userRouter.post("/login", async (req, rest) => {
-  const response = await userController.loginUser(req, rest);
-  rest.send(response);
+userRouter.post("/login", async (req, res) => {
+  const response = await userController.loginUser(req, res);
+  res.send(response);
+});
+
+userRouter.post("/personal-info", tokenVerification ,async (req, res) => {
+  const response = await userController.registerPersonalInformation(req, res);
+  res.send(response);
 });
 
 export default userRouter;

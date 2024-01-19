@@ -20,8 +20,12 @@ const registerUser = async (req, res) => {
 const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
-    await userService.loginUser(email, password);
-    res.status(200).send("User logged in successfully");
+    await userService.loginUser(email, password).then((user) => {
+      res.status(200).json({
+        message: "User logged in successfully",
+        user: user,
+      });
+    });
   } catch (error) {
     if (error.message === "401") {
       res.status(401).send("Invalid credentials");
@@ -29,9 +33,26 @@ const loginUser = async (req, res) => {
   }
 };
 
+const registerPersonalInformation = async (req, res) => {
+  try {
+    const { email } = req.user;
+    const { name, age, country } = req.body;
+    if (!name || !age || !country) {
+      return res.status(400).send("All fields are required");
+    }
+    await userService.registerPersonalInformation(email, name, age, country);
+    res.status(201).send("Personal information saved successfully");
+  } catch (error) {
+    if (error.message === "404") {
+      res.status(404).send("User not found");
+    } else res.status(500).send(`Error in saving user: ${error}`);
+  }
+};
+
 const userController = {
   registerUser,
   loginUser,
+  registerPersonalInformation,
 };
 
 export default userController;
