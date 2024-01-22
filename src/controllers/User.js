@@ -45,7 +45,36 @@ const registerPersonalInformation = async (req, res) => {
   } catch (error) {
     if (error.message === "404") {
       res.status(404).send("User not found");
-    } else res.status(500).send(`Error in saving user: ${error}`);
+    } else
+      res
+        .status(500)
+        .send(`Error in saving user personal information: ${error}`);
+  }
+};
+
+const registerCareerInformation = async (req, res) => {
+  try {
+    const { email } = req.user;
+    const { education, experience, seniority, profession } = req.body;
+    const cv = req.file.buffer;
+    if (!education || !experience || !seniority || !profession || !cv) {
+      return res.status(400).send("All fields are required");
+    }
+
+    await userService.registerCareerInformation(
+      email,
+      education,
+      experience,
+      seniority,
+      profession,
+      cv
+    );
+    res.status(201).send("Career information saved successfully");
+  } catch (error) {
+    if (error.message === "404") {
+      res.status(404).send("User not found");
+    } else
+      res.status(500).send(`Error in saving user career information: ${error}`);
   }
 };
 
@@ -53,6 +82,7 @@ const userController = {
   registerUser,
   loginUser,
   registerPersonalInformation,
+  registerCareerInformation,
 };
 
 export default userController;

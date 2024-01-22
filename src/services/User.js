@@ -71,10 +71,37 @@ const registerPersonalInformation = async (email, name, age, country) => {
   }
 };
 
+const registerCareerInformation = async (
+  email,
+  education,
+  experience,
+  seniority,
+  profession,
+  cv
+) => {
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      throw new Error("404");
+    }
+    user.education = education;
+    user.experience = experience;
+    user.seniority = seniority;
+    user.profession = profession;
+    user.cv = cv;
+
+    await user.save();
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
 const userService = {
   registerUser,
   loginUser,
   registerPersonalInformation,
+  registerCareerInformation,
 };
 
 export default userService;

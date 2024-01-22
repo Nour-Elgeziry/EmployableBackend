@@ -24,6 +24,27 @@ const User = new mongoose.Schema({
     type: String,
     required: false,
   },
+  education: {
+    type: String,
+    required: false,
+  },
+  experience: {
+    type: String,
+    required: false,
+  },
+  seniority: {
+    type: String,
+    required: false,
+  },
+  profession: {
+    type: String,
+    required: false,
+  },
+  cv: {
+    type: Buffer,
+    contentType: String,
+    required: false,
+  },
   date: {
     type: Date,
     default: Date.now,
