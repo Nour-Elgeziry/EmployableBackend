@@ -54,6 +54,16 @@ const loginUser = async (email, password) => {
   }
 };
 
+const checkUserLoggedIn = async (token) => {
+  try {
+    const user = jwt.verify(token, process.env.JWT_SECRET);
+    return user;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
 const registerPersonalInformation = async (email, name, age, country) => {
   try {
     const user = await User.findOne({ email });

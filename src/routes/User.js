@@ -8,7 +8,7 @@ const upload = multer();
 const userRouter = express.Router();
 
 userRouter.get("/", (req, res) => {
-  res.send("Hello HireMe user! This is the backend server user route");
+  res.send("Hello Employable user! This is the backend server user route");
 });
 
 userRouter.post("/register", async (req, res) => {
