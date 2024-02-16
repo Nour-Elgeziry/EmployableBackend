@@ -21,9 +21,19 @@ const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
     await userService.loginUser(email, password).then((user) => {
+      // return token in a httpOnly cookie along with user details
+      res.cookie("token", user.token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none",
+      });
+
       res.status(200).json({
-        message: "User logged in successfully",
-        user: user,
+        email: user.email,
+        name: user.name,
+        age: user.age,
+        country: user.country,
+        role: "user",
       });
     });
   } catch (error) {
