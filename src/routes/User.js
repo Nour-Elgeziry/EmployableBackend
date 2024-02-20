@@ -21,6 +21,16 @@ userRouter.post("/login", async (req, res) => {
   res.send(response);
 });
 
+userRouter.get("/logout", async (req, res) => {
+  const response = await userController.logoutUser(req, res);
+  res.send(response);
+});
+
+userRouter.get("/check-user-logged-in", async (req, res) => {
+  const response = await userController.checkUserLoggedIn(req, res);
+  res.send(response);
+});
+
 userRouter.post("/personal-info", tokenVerification, async (req, res) => {
   const response = await userController.registerPersonalInformation(req, res);
   res.send(response);

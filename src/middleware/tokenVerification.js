@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 
 function verifyToken(req, res, next) {
-  const token = req.cookies.token.token;
+  const token = req.cookies?.token?.token;
 
   if (!token) {
     return res.status(401).json({ message: "No token provided" });

@@ -43,6 +43,35 @@ const loginUser = async (req, res) => {
   }
 };
 
+const logoutUser = async (req, res) => {
+  try {
+    res.clearCookie("token");
+    res.status(200).send("User logged out successfully");
+  } catch (error) {
+    res.status(500).send(`Error in logout user: ${error}`);
+  }
+};
+
+const checkUserLoggedIn = async (req, res) => {
+  const token = req.cookies?.token;
+
+  if (!token) {
+    res.status(401).send("No token provided");
+  } else
+    try {
+      const user = await userService.checkUserLoggedIn(token);
+      res.status(200).json({
+        email: user.email,
+        name: user.name,
+        age: user.age,
+        country: user.country,
+        role: "user",
+      });
+    } catch (error) {
+      res.status(500).send(`Error in checking user logged in: ${error}`);
+    }
+};
+
 const registerPersonalInformation = async (req, res) => {
   try {
     const { email } = req.user;
@@ -91,6 +120,8 @@ const registerCareerInformation = async (req, res) => {
 const userController = {
   registerUser,
   loginUser,
+  logoutUser,
+  checkUserLoggedIn,
   registerPersonalInformation,
   registerCareerInformation,
 };

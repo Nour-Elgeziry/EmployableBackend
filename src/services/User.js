@@ -112,6 +112,7 @@ const userService = {
   loginUser,
   registerPersonalInformation,
   registerCareerInformation,
+  checkUserLoggedIn,
 };
 
 export default userService;
