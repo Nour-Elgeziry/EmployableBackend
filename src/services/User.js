@@ -42,6 +42,8 @@ const loginUser = async (email, password) => {
         name: user.name,
         age: user.age,
         country: user.country,
+        isPersonalInformationComplete: user.isPersonalInformationComplete,
+        isCareerInformationComplete: user.isCareerInformationComplete,
         token: token,
         role: "user",
       };
@@ -73,6 +75,7 @@ const registerPersonalInformation = async (email, name, age, country) => {
     user.name = name;
     user.age = age;
     user.country = country;
+    user.isPersonalInformationComplete = true;
 
     await user.save();
   } catch (error) {
@@ -99,6 +102,7 @@ const registerCareerInformation = async (
     user.seniority = seniority;
     user.profession = profession;
     user.cv = cv;
+    user.isCareerInformationComplete = true;
 
     await user.save();
   } catch (error) {

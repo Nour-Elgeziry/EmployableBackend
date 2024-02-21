@@ -33,6 +33,8 @@ const loginUser = async (req, res) => {
         name: user.name,
         age: user.age,
         country: user.country,
+        isPersonalInformationComplete: user.isPersonalInformationComplete,
+        isCareerInformationComplete: user.isCareerInformationComplete,
         role: "user",
       });
     });

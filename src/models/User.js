@@ -45,6 +45,14 @@ const User = new mongoose.Schema({
     contentType: String,
     required: false,
   },
+  isPersonalInformationComplete: {
+    type: Boolean,
+    default: false,
+  },
+  isCareerInformationComplete: {
+    type: Boolean,
+    default: false,
+  },
   date: {
     type: Date,
     default: Date.now,
