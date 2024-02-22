@@ -1,11 +1,11 @@
 import express from "express";
 
-import userRouter from "./User.js";
-import employerRouter from "./Employer.js";
+import UserRouter from "./User.js";
+import EmployerRouter from "./Employer.js";
 
 const router = express.Router();
 
-router.use("/user", userRouter);
-router.use("/employer", employerRouter);
+router.use("/user", UserRouter);
+router.use("/employer", EmployerRouter);
 
 export default router;

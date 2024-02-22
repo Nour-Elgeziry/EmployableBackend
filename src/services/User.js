@@ -111,7 +111,7 @@ const registerCareerInformation = async (
   }
 };
 
-const userService = {
+const UserService = {
   registerUser,
   loginUser,
   registerPersonalInformation,
@@ -119,4 +119,4 @@ const userService = {
   checkUserLoggedIn,
 };
 
-export default userService;
+export default UserService;

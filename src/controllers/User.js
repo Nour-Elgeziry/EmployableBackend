@@ -1,4 +1,4 @@
-import userService from "../services/User.js";
+import UserService from "../services/User.js";
 
 const registerUser = async (req, res) => {
   try {
@@ -8,7 +8,7 @@ const registerUser = async (req, res) => {
       return res.status(400).send("All fields are required");
     }
 
-    await userService.registerUser(email, password);
+    await UserService.registerUser(email, password);
     res.status(201).send("User registered successfully");
   } catch (error) {
     if (error.message === "409") {
@@ -20,7 +20,7 @@ const registerUser = async (req, res) => {
 const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
-    await userService.loginUser(email, password).then((user) => {
+    await UserService.loginUser(email, password).then((user) => {
       // return token in a httpOnly cookie along with user details
       res.cookie("token", user.token, {
         httpOnly: true,
@@ -61,7 +61,7 @@ const checkUserLoggedIn = async (req, res) => {
     res.status(401).send("No token provided");
   } else
     try {
-      const user = await userService.checkUserLoggedIn(token);
+      const user = await UserService.checkUserLoggedIn(token);
       res.status(200).json({
         email: user.email,
         name: user.name,
@@ -81,7 +81,7 @@ const registerPersonalInformation = async (req, res) => {
     if (!name || !age || !country) {
       return res.status(400).send("All fields are required");
     }
-    await userService.registerPersonalInformation(email, name, age, country);
+    await UserService.registerPersonalInformation(email, name, age, country);
     res.status(201).send("Personal information saved successfully");
   } catch (error) {
     if (error.message === "404") {
@@ -102,7 +102,7 @@ const registerCareerInformation = async (req, res) => {
       return res.status(400).send("All fields are required");
     }
 
-    await userService.registerCareerInformation(
+    await UserService.registerCareerInformation(
       email,
       education,
       experience,
@@ -119,7 +119,7 @@ const registerCareerInformation = async (req, res) => {
   }
 };
 
-const userController = {
+const UserController = {
   registerUser,
   loginUser,
   logoutUser,
@@ -128,4 +128,4 @@ const userController = {
   registerCareerInformation,
 };
 
-export default userController;
+export default UserController;

@@ -1,9 +1,26 @@
 import express from "express";
+import EmployerController from "../controllers/Employer.js";
+import verifyToken from "../middleware/tokenVerification.js";
 
-const employerRouter = express.Router();
+const EmployerRouter = express.Router();
 
-employerRouter.get("/", (req, res) => {
+EmployerRouter.get("/", (req, res) => {
   res.send("Hello Employable user! This is the backend server employer route");
 });
 
-export default employerRouter;
+EmployerRouter.post("/register", async (req, res) => {
+  const response = await EmployerController.registerEmployer(req, res);
+  res.send(response);
+});
+
+EmployerRouter.post("/login", async (req, res) => {
+  const response = await EmployerController.loginEmployer(req, res);
+  res.send(response);
+});
+
+EmployerRouter.get("/logout", async (req, res) => {
+  const response = await EmployerController.logoutEmployer(req, res);
+  res.send(response);
+});
+
+export default EmployerRouter;

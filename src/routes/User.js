@@ -1,49 +1,49 @@
 import express from "express";
 import multer from "multer";
-import userController from "../controllers/User.js";
+import UserController from "../controllers/User.js";
 import tokenVerification from "../middleware/tokenVerification.js";
 
 const upload = multer();
 
-const userRouter = express.Router();
+const UserRouter = express.Router();
 
-userRouter.get("/", (req, res) => {
+UserRouter.get("/", (req, res) => {
   res.send("Hello Employable user! This is the backend server user route");
 });
 
-userRouter.post("/register", async (req, res) => {
-  const response = await userController.registerUser(req, res);
+UserRouter.post("/register", async (req, res) => {
+  const response = await UserController.registerUser(req, res);
   res.send(response);
 });
 
-userRouter.post("/login", async (req, res) => {
-  const response = await userController.loginUser(req, res);
+UserRouter.post("/login", async (req, res) => {
+  const response = await UserController.loginUser(req, res);
   res.send(response);
 });
 
-userRouter.get("/logout", async (req, res) => {
-  const response = await userController.logoutUser(req, res);
+UserRouter.get("/logout", async (req, res) => {
+  const response = await UserController.logoutUser(req, res);
   res.send(response);
 });
 
-userRouter.get("/check-user-logged-in", async (req, res) => {
-  const response = await userController.checkUserLoggedIn(req, res);
+UserRouter.get("/check-user-logged-in", async (req, res) => {
+  const response = await UserController.checkUserLoggedIn(req, res);
   res.send(response);
 });
 
-userRouter.post("/personal-info", tokenVerification, async (req, res) => {
-  const response = await userController.registerPersonalInformation(req, res);
+UserRouter.post("/personal-info", tokenVerification, async (req, res) => {
+  const response = await UserController.registerPersonalInformation(req, res);
   res.send(response);
 });
 
-userRouter.post(
+UserRouter.post(
   "/career-info",
   tokenVerification,
   upload.single("cv"),
   async (req, res) => {
-    const response = await userController.registerCareerInformation(req, res);
+    const response = await UserController.registerCareerInformation(req, res);
     res.send(response);
   }
 );
 
-export default userRouter;
+export default UserRouter;
