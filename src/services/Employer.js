@@ -37,7 +37,7 @@ const loginEmployer = async (email, password) => {
     } else {
       // generate token
       const token = jwt.sign(
-        { userId: employer._id, email: employer.email },
+        { userId: employer._id, email: employer.email, role: "employer" },
         process.env.JWT_SECRET,
         { expiresIn: "1h" }
       );

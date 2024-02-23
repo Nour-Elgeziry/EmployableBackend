@@ -45,35 +45,6 @@ const loginEmployee = async (req, res) => {
   }
 };
 
-const logoutEmployee = async (req, res) => {
-  try {
-    res.clearCookie("token");
-    res.status(200).send("Employee logged out successfully");
-  } catch (error) {
-    res.status(500).send(`Error in logout employee: ${error}`);
-  }
-};
-
-const checkEmployeeLoggedIn = async (req, res) => {
-  const token = req.cookies?.token;
-
-  if (!token) {
-    res.status(401).send("No token provided");
-  } else
-    try {
-      const employee = await EmployeeService.checkEmployeeLoggedIn(token);
-      res.status(200).json({
-        email: employee.email,
-        name: employee.name,
-        age: employee.age,
-        country: employee.country,
-        role: "employee",
-      });
-    } catch (error) {
-      res.status(500).send(`Error in checking employee logged in: ${error}`);
-    }
-};
-
 const registerPersonalInformation = async (req, res) => {
   try {
     const { email } = req.user;
@@ -127,8 +98,6 @@ const registerCareerInformation = async (req, res) => {
 const EmployeeController = {
   registerEmployee,
   loginEmployee,
-  logoutEmployee,
-  checkEmployeeLoggedIn,
   registerPersonalInformation,
   registerCareerInformation,
 };

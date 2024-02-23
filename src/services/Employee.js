@@ -33,7 +33,7 @@ const loginEmployee = async (email, password) => {
     } else {
       // generate token
       const token = jwt.sign(
-        { employeeId: employee._id, email: employee.email },
+        { userId: employee._id, email: employee.email, role: "employee" },
         process.env.JWT_SECRET,
         { expiresIn: "1h" }
       );
@@ -50,16 +50,6 @@ const loginEmployee = async (email, password) => {
 
       return returnedEmployeeObj;
     }
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
-};
-
-const checkEmployeeLoggedIn = async (token) => {
-  try {
-    const employee = jwt.verify(token, process.env.JWT_SECRET);
-    return employee;
   } catch (error) {
     console.log(error);
     throw error;
@@ -116,7 +106,6 @@ const EmployeeService = {
   loginEmployee,
   registerPersonalInformation,
   registerCareerInformation,
-  checkEmployeeLoggedIn,
 };
 
 export default EmployeeService;

@@ -47,19 +47,9 @@ const loginEmployer = async (req, res) => {
   }
 };
 
-const logoutEmployer = async (req, res) => {
-  try {
-    res.clearCookie("token");
-    res.status(200).send("Employer logged out successfully");
-  } catch (error) {
-    res.status(500).send(`Error in logout employer: ${error}`);
-  }
-};
-
 const EmployerController = {
   registerEmployer,
   loginEmployer,
-  logoutEmployer,
 };
 
 export default EmployerController;

@@ -1,7 +1,7 @@
 import express from "express";
 import multer from "multer";
 import EmployeeController from "../controllers/Employee.js";
-import tokenVerification from "../middleware/tokenVerification.js";
+import verifyToken from "../middleware/tokenVerification.js";
 
 const upload = multer();
 
@@ -21,17 +21,9 @@ EmployeeRouter.post("/login", async (req, res) => {
   res.send(response);
 });
 
-EmployeeRouter.get("/logout", async (req, res) => {
-  const response = await EmployeeController.logoutEmployee(req, res);
-  res.send(response);
-});
 
-EmployeeRouter.get("/check-user-logged-in", async (req, res) => {
-  const response = await EmployeeController.checkEmployeeLoggedIn(req, res);
-  res.send(response);
-});
 
-EmployeeRouter.post("/personal-info", tokenVerification, async (req, res) => {
+EmployeeRouter.post("/personal-info", verifyToken, async (req, res) => {
   const response = await EmployeeController.registerPersonalInformation(
     req,
     res
@@ -41,7 +33,7 @@ EmployeeRouter.post("/personal-info", tokenVerification, async (req, res) => {
 
 EmployeeRouter.post(
   "/career-info",
-  tokenVerification,
+  verifyToken,
   upload.single("cv"),
   async (req, res) => {
     const response = await EmployeeController.registerCareerInformation(
