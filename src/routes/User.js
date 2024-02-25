@@ -10,8 +10,7 @@ UserRouter.get("/", (req, res) => {
 });
 
 UserRouter.get("/logout", async (req, res) => {
-  const response = await UserController.logoutUser(req, res);
-  res.send(response);
+  UserController.logoutUser(req, res);
 });
 
 UserRouter.get("/check-user-logged-in", verifyToken, async (req, res) => {

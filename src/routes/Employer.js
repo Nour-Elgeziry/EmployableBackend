@@ -18,9 +18,4 @@ EmployerRouter.post("/login", async (req, res) => {
   res.send(response);
 });
 
-EmployerRouter.get("/logout", async (req, res) => {
-  const response = await EmployerController.logoutEmployer(req, res);
-  res.send(response);
-});
-
 export default EmployerRouter;
