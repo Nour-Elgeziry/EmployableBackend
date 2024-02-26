@@ -12,23 +12,15 @@ EmployeeRouter.get("/", (req, res) => {
 });
 
 EmployeeRouter.post("/register", async (req, res) => {
-  const response = await EmployeeController.registerEmployee(req, res);
-  res.send(response);
+  await EmployeeController.registerEmployee(req, res);
 });
 
 EmployeeRouter.post("/login", async (req, res) => {
-  const response = await EmployeeController.loginEmployee(req, res);
-  res.send(response);
+  await EmployeeController.loginEmployee(req, res);
 });
 
-
-
 EmployeeRouter.post("/personal-info", verifyToken, async (req, res) => {
-  const response = await EmployeeController.registerPersonalInformation(
-    req,
-    res
-  );
-  res.send(response);
+  await EmployeeController.registerPersonalInformation(req, res);
 });
 
 EmployeeRouter.post(
@@ -36,11 +28,7 @@ EmployeeRouter.post(
   verifyToken,
   upload.single("cv"),
   async (req, res) => {
-    const response = await EmployeeController.registerCareerInformation(
-      req,
-      res
-    );
-    res.send(response);
+    await EmployeeController.registerCareerInformation(req, res);
   }
 );
 
