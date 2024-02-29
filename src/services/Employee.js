@@ -3,6 +3,20 @@ import jwt from "jsonwebtoken";
 
 import Employee from "../models/Employee.js";
 
+const getAllEmployees = async () => {
+  try {
+    const employees = await Employee.find({
+      isPersonalInformationComplete: true,
+      isCareerInformationComplete: true,
+    }).select(
+      "name email age country title education experience seniority"
+    );
+    return employees;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const registerEmployee = async (email, password) => {
   try {
     let employee = await Employee.findOne({ email });
@@ -79,7 +93,7 @@ const registerCareerInformation = async (
   education,
   experience,
   seniority,
-  profession,
+  title,
   cv
 ) => {
   try {
@@ -90,7 +104,7 @@ const registerCareerInformation = async (
     employee.education = education;
     employee.experience = experience;
     employee.seniority = seniority;
-    employee.profession = profession;
+    employee.title = title;
     employee.cv = cv;
     employee.isCareerInformationComplete = true;
 
@@ -102,6 +116,7 @@ const registerCareerInformation = async (
 };
 
 const EmployeeService = {
+  getAllEmployees,
   registerEmployee,
   loginEmployee,
   registerPersonalInformation,

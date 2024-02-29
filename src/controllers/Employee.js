@@ -1,5 +1,14 @@
 import EmployeeService from "../services/Employee.js";
 
+const getAllEmployees = async (req, res) => {
+  try {
+    const employees = await EmployeeService.getAllEmployees();
+    res.status(200).json(employees);
+  } catch (error) {
+    res.status(500).send(`Error in getting employees: ${error}`);
+  }
+};
+
 const registerEmployee = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -72,9 +81,9 @@ const registerPersonalInformation = async (req, res) => {
 const registerCareerInformation = async (req, res) => {
   try {
     const { email } = req.user;
-    const { education, experience, seniority, profession } = req.body;
+    const { education, experience, seniority, title } = req.body;
     const cv = req.file.buffer;
-    if (!education || !experience || !seniority || !profession || !cv) {
+    if (!education || !experience || !seniority || !title || !cv) {
       return res.status(400).send("All fields are required");
     }
 
@@ -83,7 +92,7 @@ const registerCareerInformation = async (req, res) => {
       education,
       experience,
       seniority,
-      profession,
+      title,
       cv
     );
     res.status(201).send("Career information saved successfully");
@@ -98,6 +107,7 @@ const registerCareerInformation = async (req, res) => {
 const EmployeeController = {
   registerEmployee,
   loginEmployee,
+  getAllEmployees,
   registerPersonalInformation,
   registerCareerInformation,
 };

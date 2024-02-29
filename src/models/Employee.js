@@ -36,7 +36,7 @@ const Employee = new mongoose.Schema({
     type: String,
     required: false,
   },
-  profession: {
+  title: {
     type: String,
     required: false,
   },
@@ -55,7 +55,7 @@ const Employee = new mongoose.Schema({
   },
   date: {
     type: Date,
-    default: Date.now,
+    default: Date.now(),
   },
 });
 

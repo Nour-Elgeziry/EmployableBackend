@@ -11,6 +11,10 @@ EmployeeRouter.get("/", (req, res) => {
   res.send("Hello Employable user! This is the backend server user route");
 });
 
+EmployeeRouter.get("/get-all", async (req, res) => {
+  await EmployeeController.getAllEmployees(req, res);
+});
+
 EmployeeRouter.post("/register", async (req, res) => {
   await EmployeeController.registerEmployee(req, res);
 });
