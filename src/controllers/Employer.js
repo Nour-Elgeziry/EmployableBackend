@@ -35,8 +35,6 @@ const loginEmployer = async (req, res) => {
         name: employer.name,
         company: employer.company,
         website: employer.website,
-        date: employer.date,
-        token: employer.token,
         role: "employer",
       });
     });
