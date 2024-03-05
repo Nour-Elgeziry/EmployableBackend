@@ -22,6 +22,12 @@ const Employer = new mongoose.Schema({
     type: String,
     required: false,
   },
+  employeeShortList: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Employee",
+    },
+  ],
   date: {
     type: Date,
     default: Date.now,

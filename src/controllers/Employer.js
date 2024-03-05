@@ -35,6 +35,7 @@ const signInEmployer = async (req, res) => {
         name: employer.name,
         company: employer.company,
         website: employer.website,
+        employeeShortList: employer.employeeShortList,
         role: "employer",
       });
     });
@@ -45,9 +46,44 @@ const signInEmployer = async (req, res) => {
   }
 };
 
+const getEmployeeShortList = async (req, res) => {
+  try {
+    const { email } = req.user;
+    const employeeShortList = await EmployerService.getEmployeeShortList(email);
+    res.status(200).json(employeeShortList);
+  } catch (error) {
+    res.status(500).send(`Error in getting employee shortlist: ${error}`);
+  }
+};
+
+const addEmployeeToShortList = async (req, res) => {
+  try {
+    const { email } = req.user;
+    const { employeeId } = req.body;
+    await EmployerService.addEmployeeToShortList(email, employeeId);
+    res.status(200).send("Employee added to shortlist successfully");
+  } catch (error) {
+    res.status(500).send(`Error in adding employee to shortlist: ${error}`);
+  }
+};
+
+const removeEmployeeFromShortList = async (req, res) => {
+  try {
+    const { email } = req.user;
+    const { employeeId } = req.body;
+    await EmployerService.removeEmployeeFromShortList(email, employeeId);
+    res.status(200).send("Employee removed from shortlist successfully");
+  } catch (error) {
+    res.status(500).send(`Error in removing employee from shortlist: ${error}`);
+  }
+};
+
 const EmployerController = {
   signUpEmployer,
   signInEmployer,
+  getEmployeeShortList,
+  addEmployeeToShortList,
+  removeEmployeeFromShortList
 };
 
 export default EmployerController;

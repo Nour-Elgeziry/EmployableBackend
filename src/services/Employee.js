@@ -8,7 +8,7 @@ const getAllEmployees = async () => {
     const employees = await Employee.find({
       isPersonalInformationComplete: true,
       isCareerInformationComplete: true,
-    }).select("name email age country title education experience seniority");
+    }).select("_id name email age country title education experience seniority");
     return employees;
   } catch (error) {
     throw error;

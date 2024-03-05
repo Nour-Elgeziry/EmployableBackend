@@ -47,6 +47,7 @@ const signInEmployer = async (email, password) => {
         website: employer.website,
         date: employer.date,
         token: token,
+        employeeShortList: employer.employeeShortList,
         role: "employer",
       };
 
@@ -58,8 +59,47 @@ const signInEmployer = async (email, password) => {
   }
 };
 
+const getEmployeeShortList = async (email) => {
+  try {
+    const employeeShortList = await Employer.findOne({ email }).populate(
+      "employeeShortList"
+    );
+    return employeeShortList;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+const addEmployeeToShortList = async (email, employeeId) => {
+  try {
+    const employer = await Employer.findOne({ email });
+    employer.employeeShortList.push(employeeId);
+    await employer.save();
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+const removeEmployeeFromShortList = async (email, employeeId) => {
+  try {
+    const employer = await Employer.findOne({ email });
+    employer.employeeShortList = employer.employeeShortList.filter(
+      (id) => id.toString() !== employeeId
+    );
+    await employer.save();
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
 const EmployerService = {
   signUpEmployer,
   signInEmployer,
+  getEmployeeShortList,
+  addEmployeeToShortList,
+  removeEmployeeFromShortList,
 };
 export default EmployerService;
