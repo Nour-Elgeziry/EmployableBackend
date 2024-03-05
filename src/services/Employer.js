@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 
 import Employer from "../models/Employer.js";
 
-const registerEmployer = async (email, password, name, company, website) => {
+const signUpEmployer = async (email, password, name, company, website) => {
   try {
     let employer = await Employer.findOne({ email });
     if (employer) {
@@ -23,7 +23,7 @@ const registerEmployer = async (email, password, name, company, website) => {
   }
 };
 
-const loginEmployer = async (email, password) => {
+const signInEmployer = async (email, password) => {
   try {
     const employer = await Employer.findOne({ email });
     if (!employer) {
@@ -59,7 +59,7 @@ const loginEmployer = async (email, password) => {
 };
 
 const EmployerService = {
-  registerEmployer,
-  loginEmployer,
+  signUpEmployer,
+  signInEmployer,
 };
 export default EmployerService;

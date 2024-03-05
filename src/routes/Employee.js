@@ -15,12 +15,12 @@ EmployeeRouter.get("/get-all", async (req, res) => {
   await EmployeeController.getAllEmployees(req, res);
 });
 
-EmployeeRouter.post("/register", async (req, res) => {
-  await EmployeeController.registerEmployee(req, res);
+EmployeeRouter.post("/signUp", async (req, res) => {
+  await EmployeeController.signUpEmployee(req, res);
 });
 
-EmployeeRouter.post("/login", async (req, res) => {
-  await EmployeeController.loginEmployee(req, res);
+EmployeeRouter.post("/signIn", async (req, res) => {
+  await EmployeeController.signInEmployee(req, res);
 });
 
 EmployeeRouter.post("/personal-info", verifyToken, async (req, res) => {

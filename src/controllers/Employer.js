@@ -1,9 +1,9 @@
 import EmployerService from "../services/Employer.js";
 
-const registerEmployer = async (req, res) => {
+const signUpEmployer = async (req, res) => {
   try {
     const { email, password, name, company, website } = req.body;
-    await EmployerService.registerEmployer(
+    await EmployerService.signUpEmployer(
       email,
       password,
       name,
@@ -18,11 +18,11 @@ const registerEmployer = async (req, res) => {
   }
 };
 
-const loginEmployer = async (req, res) => {
+const signInEmployer = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    await EmployerService.loginEmployer(email, password).then((employer) => {
+    await EmployerService.signInEmployer(email, password).then((employer) => {
       // return token in a httpOnly cookie along with user details
       res.cookie("token", employer.token, {
         httpOnly: true,
@@ -46,8 +46,8 @@ const loginEmployer = async (req, res) => {
 };
 
 const EmployerController = {
-  registerEmployer,
-  loginEmployer,
+  signUpEmployer,
+  signInEmployer,
 };
 
 export default EmployerController;

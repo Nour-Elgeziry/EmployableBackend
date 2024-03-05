@@ -9,7 +9,7 @@ const getAllEmployees = async (req, res) => {
   }
 };
 
-const registerEmployee = async (req, res) => {
+const signUpEmployee = async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -17,7 +17,7 @@ const registerEmployee = async (req, res) => {
       return res.status(400).send("All fields are required");
     }
 
-    await EmployeeService.registerEmployee(email, password);
+    await EmployeeService.signUpEmployee(email, password);
     res.status(201).send("Employee registered successfully");
   } catch (error) {
     if (error.message === "409") {
@@ -26,10 +26,10 @@ const registerEmployee = async (req, res) => {
   }
 };
 
-const loginEmployee = async (req, res) => {
+const signInEmployee = async (req, res) => {
   try {
     const { email, password } = req.body;
-    await EmployeeService.loginEmployee(email, password).then((employee) => {
+    await EmployeeService.signInEmployee(email, password).then((employee) => {
       // return token in a httpOnly cookie along with user details
       res.cookie("token", employee.token, {
         httpOnly: true,
@@ -105,8 +105,8 @@ const registerCareerInformation = async (req, res) => {
 };
 
 const EmployeeController = {
-  registerEmployee,
-  loginEmployee,
+  signUpEmployee,
+  signInEmployee,
   getAllEmployees,
   registerPersonalInformation,
   registerCareerInformation,

@@ -8,16 +8,14 @@ const getAllEmployees = async () => {
     const employees = await Employee.find({
       isPersonalInformationComplete: true,
       isCareerInformationComplete: true,
-    }).select(
-      "name email age country title education experience seniority"
-    );
+    }).select("name email age country title education experience seniority");
     return employees;
   } catch (error) {
     throw error;
   }
 };
 
-const registerEmployee = async (email, password) => {
+const signUpEmployee = async (email, password) => {
   try {
     let employee = await Employee.findOne({ email });
 
@@ -32,7 +30,7 @@ const registerEmployee = async (email, password) => {
   }
 };
 
-const loginEmployee = async (email, password) => {
+const signInEmployee = async (email, password) => {
   try {
     const employee = await Employee.findOne({ email });
 
@@ -117,8 +115,8 @@ const registerCareerInformation = async (
 
 const EmployeeService = {
   getAllEmployees,
-  registerEmployee,
-  loginEmployee,
+  signUpEmployee,
+  signInEmployee,
   registerPersonalInformation,
   registerCareerInformation,
 };

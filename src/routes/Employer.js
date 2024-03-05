@@ -7,12 +7,12 @@ EmployerRouter.get("/", (req, res) => {
   res.send("Hello Employable user! This is the backend server employer route");
 });
 
-EmployerRouter.post("/register", async (req, res) => {
-  await EmployerController.registerEmployer(req, res);
+EmployerRouter.post("/signUp", async (req, res) => {
+  await EmployerController.signUpEmployer(req, res);
 });
 
-EmployerRouter.post("/login", async (req, res) => {
-  await EmployerController.loginEmployer(req, res);
+EmployerRouter.post("/signIn", async (req, res) => {
+  await EmployerController.signInEmployer(req, res);
 });
 
 export default EmployerRouter;
