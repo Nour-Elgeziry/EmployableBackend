@@ -76,6 +76,10 @@ const addEmployeeToShortList = async (email, employeeId) => {
     const employer = await Employer.findOne({ email });
     employer.employeeShortList.push(employeeId);
     await employer.save();
+    const updatedEmployer = await Employer.findOne({ email }).populate(
+      "employeeShortList"
+    );
+    return updatedEmployer.employeeShortList;
   } catch (error) {
     console.log(error);
     throw error;
@@ -89,6 +93,10 @@ const removeEmployeeFromShortList = async (email, employeeId) => {
       (id) => id.toString() !== employeeId
     );
     await employer.save();
+    const updatedEmployer = await Employer.findOne({ email }).populate(
+      "employeeShortList"
+    );
+    return updatedEmployer.employeeShortList;
   } catch (error) {
     console.log(error);
     throw error;

@@ -60,8 +60,11 @@ const addEmployeeToShortList = async (req, res) => {
   try {
     const { email } = req.user;
     const { employeeId } = req.body;
-    await EmployerService.addEmployeeToShortList(email, employeeId);
-    res.status(200).send("Employee added to shortlist successfully");
+    const updatedShortList = await EmployerService.addEmployeeToShortList(
+      email,
+      employeeId
+    );
+    res.status(200).json(updatedShortList);
   } catch (error) {
     res.status(500).send(`Error in adding employee to shortlist: ${error}`);
   }
@@ -71,8 +74,11 @@ const removeEmployeeFromShortList = async (req, res) => {
   try {
     const { email } = req.user;
     const { employeeId } = req.body;
-    await EmployerService.removeEmployeeFromShortList(email, employeeId);
-    res.status(200).send("Employee removed from shortlist successfully");
+    const updatedShortList = await EmployerService.removeEmployeeFromShortList(
+      email,
+      employeeId
+    );
+    res.status(200).json(updatedShortList);
   } catch (error) {
     res.status(500).send(`Error in removing employee from shortlist: ${error}`);
   }
@@ -83,7 +89,7 @@ const EmployerController = {
   signInEmployer,
   getEmployeeShortList,
   addEmployeeToShortList,
-  removeEmployeeFromShortList
+  removeEmployeeFromShortList,
 };
 
 export default EmployerController;

@@ -28,8 +28,12 @@ EmployerRouter.post(
   }
 );
 
-EmployerRouter.post("/remove-employee-shortlist", verifyToken, async (req, res) => {
-  await EmployerController.removeEmployeeFromShortList(req, res);
-})
+EmployerRouter.post(
+  "/remove-employee-shortlist",
+  verifyToken,
+  async (req, res) => {
+    await EmployerController.removeEmployeeFromShortList(req, res);
+  }
+);
 
 export default EmployerRouter;
