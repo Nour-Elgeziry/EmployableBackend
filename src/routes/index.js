@@ -1,12 +1,12 @@
 import express from "express";
 
-import EmployeeRouter from "./Employee.js";
+import JobSeekerRouter from "./JobSeeker.js";
 import EmployerRouter from "./Employer.js";
 import UserRouter from "./User.js";
 
 const router = express.Router();
 
-router.use("/employee", EmployeeRouter);
+router.use("/jobSeeker", JobSeekerRouter);
 router.use("/employer", EmployerRouter);
 router.use("/user", UserRouter);
 

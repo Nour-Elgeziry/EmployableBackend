@@ -22,10 +22,10 @@ const Employer = new mongoose.Schema({
     type: String,
     required: false,
   },
-  employeeShortList: [
+  jobSeekerShortList: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Employee",
+      ref: "JobSeeker",
     },
   ],
   date: {

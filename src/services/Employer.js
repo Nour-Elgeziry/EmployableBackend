@@ -47,7 +47,7 @@ const signInEmployer = async (email, password) => {
         website: employer.website,
         date: employer.date,
         token: token,
-        employeeShortList: employer.employeeShortList,
+        jobSeekerShortList: employer.jobSeekerShortList,
         role: "employer",
       };
 
@@ -59,44 +59,44 @@ const signInEmployer = async (email, password) => {
   }
 };
 
-const getEmployeeShortList = async (email) => {
+const getJobSeekerShortList = async (email) => {
   try {
-    const employeeShortList = await Employer.findOne({ email }).populate(
-      "employeeShortList"
+    const jobSeekerShortList = await Employer.findOne({ email }).populate(
+      "jobSeekerShortList"
     );
-    return employeeShortList;
+    return jobSeekerShortList;
   } catch (error) {
     console.log(error);
     throw error;
   }
 };
 
-const addEmployeeToShortList = async (email, employeeId) => {
+const addJobSeekerToShortList = async (email, jobSeekerId) => {
   try {
     const employer = await Employer.findOne({ email });
-    employer.employeeShortList.push(employeeId);
+    employer.jobSeekerShortList.push(jobSeekerId);
     await employer.save();
     const updatedEmployer = await Employer.findOne({ email }).populate(
-      "employeeShortList"
+      "jobSeekerShortList"
     );
-    return updatedEmployer.employeeShortList;
+    return updatedEmployer.jobSeekerShortList;
   } catch (error) {
     console.log(error);
     throw error;
   }
 };
 
-const removeEmployeeFromShortList = async (email, employeeId) => {
+const removeJobSeekerFromShortList = async (email, jobSeekerId) => {
   try {
     const employer = await Employer.findOne({ email });
-    employer.employeeShortList = employer.employeeShortList.filter(
-      (id) => id.toString() !== employeeId
+    employer.jobSeekerShortList = employer.jobSeekerShortList.filter(
+      (id) => id.toString() !== jobSeekerId
     );
     await employer.save();
     const updatedEmployer = await Employer.findOne({ email }).populate(
-      "employeeShortList"
+      "jobSeekerShortList"
     );
-    return updatedEmployer.employeeShortList;
+    return updatedEmployer.jobSeekerShortList;
   } catch (error) {
     console.log(error);
     throw error;
@@ -106,8 +106,8 @@ const removeEmployeeFromShortList = async (email, employeeId) => {
 const EmployerService = {
   signUpEmployer,
   signInEmployer,
-  getEmployeeShortList,
-  addEmployeeToShortList,
-  removeEmployeeFromShortList,
+  getJobSeekerShortList,
+  addJobSeekerToShortList,
+  removeJobSeekerFromShortList,
 };
 export default EmployerService;

@@ -2,11 +2,11 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
-const Employee = new mongoose.Schema({
+const JobSeeker = new mongoose.Schema({
   name: {
     type: String,
     required: false,
-    default: "Employee",
+    default: "JobSeeker",
   },
   email: {
     type: String,
@@ -60,7 +60,7 @@ const Employee = new mongoose.Schema({
 });
 
 //HOOKS
-Employee.pre("save", function (next) {
+JobSeeker.pre("save", function (next) {
   if (!this.isModified("password")) {
     return next();
   }
@@ -78,4 +78,4 @@ Employee.pre("save", function (next) {
   });
 });
 
-export default mongoose.model("Employee", Employee);
+export default mongoose.model("JobSeeker", JobSeeker);

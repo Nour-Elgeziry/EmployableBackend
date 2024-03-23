@@ -16,23 +16,23 @@ EmployerRouter.post("/signIn", async (req, res) => {
   await EmployerController.signInEmployer(req, res);
 });
 
-EmployerRouter.get("/get-employee-shortlist", verifyToken, async (req, res) => {
-  await EmployerController.getEmployeeShortList(req, res);
+EmployerRouter.get("/get-job-seeker-shortlist", verifyToken, async (req, res) => {
+  await EmployerController.getJobSeekerShortList(req, res);
 });
 
 EmployerRouter.post(
-  "/add-employee-shortlist",
+  "/add-job-seeker-shortlist",
   verifyToken,
   async (req, res) => {
-    await EmployerController.addEmployeeToShortList(req, res);
+    await EmployerController.addJobSeekerToShortList(req, res);
   }
 );
 
 EmployerRouter.post(
-  "/remove-employee-shortlist",
+  "/remove-job-seeker-shortlist",
   verifyToken,
   async (req, res) => {
-    await EmployerController.removeEmployeeFromShortList(req, res);
+    await EmployerController.removeJobSeekerFromShortList(req, res);
   }
 );
 

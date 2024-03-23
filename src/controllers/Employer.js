@@ -35,7 +35,7 @@ const signInEmployer = async (req, res) => {
         name: employer.name,
         company: employer.company,
         website: employer.website,
-        employeeShortList: employer.employeeShortList,
+        jobSeekerShortList: employer.jobSeekerShortList,
         role: "employer",
       });
     });
@@ -46,50 +46,50 @@ const signInEmployer = async (req, res) => {
   }
 };
 
-const getEmployeeShortList = async (req, res) => {
+const getJobSeekerShortList = async (req, res) => {
   try {
     const { email } = req.user;
-    const employeeShortList = await EmployerService.getEmployeeShortList(email);
-    res.status(200).json(employeeShortList);
+    const jobSeekerShortList = await EmployerService.getJobSeekerShortList(email);
+    res.status(200).json(jobSeekerShortList);
   } catch (error) {
-    res.status(500).send(`Error in getting employee shortlist: ${error}`);
+    res.status(500).send(`Error in getting job seeker shortlist: ${error}`);
   }
 };
 
-const addEmployeeToShortList = async (req, res) => {
+const addJobSeekerToShortList = async (req, res) => {
   try {
     const { email } = req.user;
-    const { employeeId } = req.body;
-    const updatedShortList = await EmployerService.addEmployeeToShortList(
+    const { jobSeekerId } = req.body;
+    const updatedShortList = await EmployerService.addJobSeekerToShortList(
       email,
-      employeeId
+      jobSeekerId
     );
     res.status(200).json(updatedShortList);
   } catch (error) {
-    res.status(500).send(`Error in adding employee to shortlist: ${error}`);
+    res.status(500).send(`Error in adding job seeker to shortlist: ${error}`);
   }
 };
 
-const removeEmployeeFromShortList = async (req, res) => {
+const removeJobSeekerFromShortList = async (req, res) => {
   try {
     const { email } = req.user;
-    const { employeeId } = req.body;
-    const updatedShortList = await EmployerService.removeEmployeeFromShortList(
+    const { jobSeekerId } = req.body;
+    const updatedShortList = await EmployerService.removeJobSeekerFromShortList(
       email,
-      employeeId
+      jobSeekerId
     );
     res.status(200).json(updatedShortList);
   } catch (error) {
-    res.status(500).send(`Error in removing employee from shortlist: ${error}`);
+    res.status(500).send(`Error in removing jobSeeker from shortlist: ${error}`);
   }
 };
 
 const EmployerController = {
   signUpEmployer,
   signInEmployer,
-  getEmployeeShortList,
-  addEmployeeToShortList,
-  removeEmployeeFromShortList,
+  getJobSeekerShortList,
+  addJobSeekerToShortList,
+  removeJobSeekerFromShortList,
 };
 
 export default EmployerController;

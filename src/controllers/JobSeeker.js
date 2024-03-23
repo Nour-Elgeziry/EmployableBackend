@@ -1,15 +1,15 @@
-import EmployeeService from "../services/Employee.js";
+import JobSeekerService from "../services/JobSeeker.js";
 
-const getAllEmployees = async (req, res) => {
+const getAllJobSeekers = async (req, res) => {
   try {
-    const employees = await EmployeeService.getAllEmployees();
-    res.status(200).json(employees);
+    const jobSeekers = await JobSeekerService.getAllJobSeekers();
+    res.status(200).json(jobSeekers);
   } catch (error) {
-    res.status(500).send(`Error in getting employees: ${error}`);
+    res.status(500).send(`Error in getting job seekers: ${error}`);
   }
 };
 
-const signUpEmployee = async (req, res) => {
+const signUpJobSeeker = async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -17,40 +17,40 @@ const signUpEmployee = async (req, res) => {
       return res.status(400).send("All fields are required");
     }
 
-    await EmployeeService.signUpEmployee(email, password);
-    res.status(201).send("Employee registered successfully");
+    await JobSeekerService.signUpJobSeeker(email, password);
+    res.status(201).send("JobSeeker registered successfully");
   } catch (error) {
     if (error.message === "409") {
-      res.status(409).send("Employee already exists");
-    } else res.status(500).send(`Error in saving employee: ${error}`);
+      res.status(409).send("Job seeker already exists");
+    } else res.status(500).send(`Error in saving job seeker: ${error}`);
   }
 };
 
-const signInEmployee = async (req, res) => {
+const signInJobSeeker = async (req, res) => {
   try {
     const { email, password } = req.body;
-    await EmployeeService.signInEmployee(email, password).then((employee) => {
+    await JobSeekerService.signInJobSeeker(email, password).then((jobSeeker) => {
       // return token in a httpOnly cookie along with user details
-      res.cookie("token", employee.token, {
+      res.cookie("token", jobSeeker.token, {
         httpOnly: true,
         secure: true,
         sameSite: "none",
       });
 
       res.status(200).json({
-        email: employee.email,
-        name: employee.name,
-        age: employee.age,
-        country: employee.country,
-        isPersonalInformationComplete: employee.isPersonalInformationComplete,
-        isCareerInformationComplete: employee.isCareerInformationComplete,
-        role: "employee",
+        email: jobSeeker.email,
+        name: jobSeeker.name,
+        age: jobSeeker.age,
+        country: jobSeeker.country,
+        isPersonalInformationComplete: jobSeeker.isPersonalInformationComplete,
+        isCareerInformationComplete: jobSeeker.isCareerInformationComplete,
+        role: "jobSeeker",
       });
     });
   } catch (error) {
     if (error.message === "401") {
       res.status(401).send("Invalid credentials");
-    } else res.status(500).send(`Error in login employee: ${error}`);
+    } else res.status(500).send(`Error in login job seeker: ${error}`);
   }
 };
 
@@ -61,7 +61,7 @@ const registerPersonalInformation = async (req, res) => {
     if (!name || !age || !country) {
       return res.status(400).send("All fields are required");
     }
-    await EmployeeService.registerPersonalInformation(
+    await JobSeekerService.registerPersonalInformation(
       email,
       name,
       age,
@@ -70,11 +70,11 @@ const registerPersonalInformation = async (req, res) => {
     res.status(201).send("Personal information saved successfully");
   } catch (error) {
     if (error.message === "404") {
-      res.status(404).send("Employee not found");
+      res.status(404).send("Job seeker not found");
     } else
       res
         .status(500)
-        .send(`Error in saving employee personal information: ${error}`);
+        .send(`Error in saving job seeker personal information: ${error}`);
   }
 };
 
@@ -87,7 +87,7 @@ const registerCareerInformation = async (req, res) => {
       return res.status(400).send("All fields are required");
     }
 
-    await EmployeeService.registerCareerInformation(
+    await JobSeekerService.registerCareerInformation(
       email,
       education,
       experience,
@@ -98,18 +98,18 @@ const registerCareerInformation = async (req, res) => {
     res.status(201).send("Career information saved successfully");
   } catch (error) {
     if (error.message === "404") {
-      res.status(404).send("Employee not found");
+      res.status(404).send("Job seeker not found");
     } else
       res.status(500).send(`Error in saving user career information: ${error}`);
   }
 };
 
-const EmployeeController = {
-  signUpEmployee,
-  signInEmployee,
-  getAllEmployees,
+const JobSeekerController = {
+  signUpJobSeeker,
+  signInJobSeeker,
+  getAllJobSeekers,
   registerPersonalInformation,
   registerCareerInformation,
 };
 
-export default EmployeeController;
+export default JobSeekerController;
